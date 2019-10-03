@@ -37,7 +37,12 @@ int main(int argc, char **argv){
     echoServPort = atoi(argv[3]);
   else
     echoServPort = 7; // 7 is a well-known port for the echo service
-
+  
+  if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
+        DieWithError("socket creation failed");
+        exit(EXIT_FAILURE);
+  }
+  
   /* Create a datagram/UDP socket*/
   memset(&echoServAddr, 0, sizeof(echoServAddr)); //zero out the structure
   echoServAddr.sin_family = AF_INET;                // Internet address family
